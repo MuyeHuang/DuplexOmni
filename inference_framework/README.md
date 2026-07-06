@@ -47,8 +47,20 @@ Stop:
 Realtime bridge:
 
 ```bash
-python omni_realtime_server.py --host 0.0.0.0 --port 8765
-python omni_realtime_mac_client.py --server ws://your-server-host:8765
+python3 omni_realtime_server.py --host 0.0.0.0 --port 8765
+python3 omni_realtime_mac_client.py --server ws://127.0.0.1:8765
+```
+
+For a remote server, either use a reachable host directly or forward the remote
+port to the Mac:
+
+```bash
+# Direct remote connection.
+python3 omni_realtime_mac_client.py --server ws://your-server-host:8765
+
+# Local Mac tunnel to the remote bridge.
+ssh -L 28765:127.0.0.1:8765 user@your-server
+python3 omni_realtime_mac_client.py --server ws://127.0.0.1:28765
 ```
 
 ## 中文
@@ -67,4 +79,7 @@ python omni_realtime_mac_client.py --server ws://your-server-host:8765
 
 数据和模型权重不包含在代码仓库中。请从公开模型仓库下载 thinker、talker、TTS 等资产，并通过环境变量传入本地路径。
 
-启动、停止和实时桥接示例见上方命令。运行时需要替换模型路径、endpoint 和 key；`EMPTY` 只适用于本地无鉴权 OpenAI-compatible 服务。
+启动、停止和实时桥接示例见上方命令。服务和 Mac 在同一台机器上时可使用
+`ws://127.0.0.1:8765`；服务在远端时，请使用 Mac 能访问到的远端地址，或先通过
+`ssh -L 28765:127.0.0.1:8765 user@your-server` 做本地转发，再运行
+`python3 omni_realtime_mac_client.py --server ws://127.0.0.1:28765`。运行时需要替换模型路径、endpoint 和 key；`EMPTY` 只适用于本地无鉴权 OpenAI-compatible 服务。

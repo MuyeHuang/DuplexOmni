@@ -34,6 +34,17 @@ The S2 thinking endpoint can be a local OpenAI-compatible service or an external
 API; configure it explicitly through `S2_THINK_BASE_URL`, `S2_MODEL_NAME`, and
 `S2_API_KEY`.
 
+Realtime Mac client examples:
+
+```bash
+python3 omni_realtime_server.py --host 0.0.0.0 --port 8765
+python3 omni_realtime_mac_client.py --server ws://127.0.0.1:8765
+
+# Remote server through a local Mac tunnel.
+ssh -L 28765:127.0.0.1:8765 user@your-server
+python3 omni_realtime_mac_client.py --server ws://127.0.0.1:28765
+```
+
 Main files:
 
 - `start_thinker_talker_stack.sh`: start thinker/talker/orchestrator services.
@@ -91,6 +102,17 @@ curl http://127.0.0.1:21000/health
 - 实时音频流：`ws://127.0.0.1:21000/v1/audio/stream/{session_id}`
 
 `simulate_v8.py` 和 `simulate_video_v8.py` 是面向 orchestrator 的本地 scripted simulation。`omni_realtime_server.py` 加 `omni_realtime_mac_client.py` 是真实麦克风/WebSocket 交互路径。S2 thinking endpoint 可以是本地 OpenAI-compatible 服务，也可以是外部 API；需要通过 `S2_THINK_BASE_URL`、`S2_MODEL_NAME` 和 `S2_API_KEY` 显式配置。
+
+实时 Mac 客户端示例：
+
+```bash
+python3 omni_realtime_server.py --host 0.0.0.0 --port 8765
+python3 omni_realtime_mac_client.py --server ws://127.0.0.1:8765
+
+# 远端服务通过 Mac 本地端口转发访问。
+ssh -L 28765:127.0.0.1:8765 user@your-server
+python3 omni_realtime_mac_client.py --server ws://127.0.0.1:28765
+```
 
 主要文件：
 

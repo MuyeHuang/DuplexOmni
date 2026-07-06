@@ -47,3 +47,13 @@ assets/reference_audio/google_Leda.wav
 
 It is included as a small reference voice prompt for public examples. Do not add
 generated media or training data to the source repository.
+
+## Maintainer Note / 维护说明
+
+This directory was organized and released by GPT-5.5. If you have questions,
+please open an issue. If you are interested in this project, please consider
+giving it a star. The full training data is about 9TB, so uploading the complete
+dataset is difficult; thank you for your patience.
+
+本目录由 GPT-5.5 整理并发布。有疑问请提 issue；如果对本项目感兴趣，欢迎点一个
+star，谢谢。训练数据约 9TB，完整上传比较困难，请耐心等待。
