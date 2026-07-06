@@ -1,14 +1,14 @@
-# DuplexOmni
+# 🚀 DuplexOmni
+
+🌐 Language: **English** | [中文说明](#中文说明)
 
 **DuplexOmni** is a realtime multimodal full-duplex interaction system for
 listening, seeing, thinking, and speaking in parallel. This repository contains
 the public source code for the data pipeline, training framework, and realtime
 serving stack described in the paper:
 
-> [DuplexOmni: Real-Time Listening, Seeing, Thinking, and Speaking for
-> Full-Duplex Interaction](https://arxiv.org/abs/2606.09186)
-
-Language: **English** | [中文说明](#中文说明)
+📄 Paper: [DuplexOmni: Real-Time Listening, Seeing, Thinking, and Speaking for
+Full-Duplex Interaction](https://arxiv.org/abs/2606.09186)
 
 ## Overview
 
@@ -30,6 +30,12 @@ Generated datasets, trained model weights, checkpoints, logs, internal service
 endpoints, generated parquet, and generated media are not included in this
 repository. When public artifact repositories are available, download those
 assets separately and pass their local paths to the relevant scripts.
+
+Questions and contributions are welcome through
+[GitHub Issues](https://github.com/MuyeHuang/DuplexOmni/issues). If you are
+interested in this work, please consider starring the repository. The full
+training data is about 9TB, so complete public upload may take time; thank you
+for your patience.
 
 ## For Developers
 
@@ -671,11 +677,14 @@ those directories or pass explicit CLI arguments.
 
 ## 中文说明
 
-返回：[English overview](#overview)
+🌐 语言：[English overview](#overview) | **中文**
 
-本仓库提供 **DuplexOmni** 的公开源码，对应论文
-[DuplexOmni: Real-Time Listening, Seeing, Thinking, and Speaking for
-Full-Duplex Interaction](https://arxiv.org/abs/2606.09186)。
+本仓库提供 **DuplexOmni** 的公开源码。DuplexOmni 是一个面向实时多模态全双工交互的系统，目标是在同一交互过程中并行完成听、看、思考与说话。本仓库包含论文中数据管线、训练框架和实时推理服务栈对应的工程实现。
+
+📄 论文：[DuplexOmni: Real-Time Listening, Seeing, Thinking, and Speaking for
+Full-Duplex Interaction](https://arxiv.org/abs/2606.09186)
+
+### 🚀 概览
 
 DuplexOmni 面向实时全双工多模态交互：系统在生成语音输出的同时持续处理流式音频/视频输入，并通过可插拔的 System-2 层承载较慢的推理、检索或工具调用。本仓库覆盖从训练数据构建、模型训练到实时推理服务的主要工程组件。
 
@@ -687,9 +696,27 @@ DuplexOmni 面向实时全双工多模态交互：系统在生成语音输出的
 - 基于修改版 vLLM 的实时推理服务栈；
 - 外部数据、checkpoint 和运行依赖的文档说明。
 
-数据集、模型权重、checkpoint、日志、生成 parquet、生成音视频和内部服务地址不包含在源码仓库中。相关资产发布前，文档中会保留 `<duplexomni-dataset-repo>`、`<duplexomni-thinker-model-repo>`、`<duplexomni-talker-model-repo>` 等占位符。下载后的本地资产应放在 `data/`、`models/` 或 `outputs/` 等目录中，不应提交到源码仓库；顶层 `.gitignore` 与 `.gitignore` 会做发布前检查。第三方源码说明见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。
+生成数据集、训练后的模型权重、checkpoint、日志、内部服务地址、生成 parquet 和生成媒体文件不包含在本仓库中。公开资产仓库可用后，请单独下载并通过脚本参数或环境变量传入本地路径。
 
-如果使用自动化编码或运行工具，请先阅读 [`for_agent.md`](for_agent.md)。该文件说明仓库边界、安全执行顺序、外部资产、环境变量和验证命令。
+如有问题或建议，欢迎通过 [GitHub Issues](https://github.com/MuyeHuang/DuplexOmni/issues) 反馈；如果你对本项目感兴趣，也欢迎点一个 star。完整训练数据约 9TB，公开完整上传需要较长时间，请耐心等待。
+
+### 🛠️ 面向开发者
+
+建议先运行静态发布检查，再根据需要阅读对应组件的安装和运行文档：
+
+```bash
+git status --short
+```
+
+推荐阅读顺序：
+
+1. [`CONCEPTS.md`](CONCEPTS.md)：核心术语、训练信号和 S1/S2 控制约定。
+2. [`EXTERNAL_ASSETS.md`](EXTERNAL_ASSETS.md)：数据集、checkpoint、噪声语料和资产仓库占位符。
+3. [`INSTALL.md`](INSTALL.md)：环境安装和依赖准备。
+4. [`DEPENDENCIES.md`](DEPENDENCIES.md)：文件级依赖关系。
+5. [`data_pipeline/README.md`](data_pipeline/README.md)、[`training_framework/README.md`](training_framework/README.md) 和 [`inference_framework/README.md`](inference_framework/README.md)：各子系统的具体工作流。
+
+如果使用自动化编码或运行工具，请先阅读 [`for_agent.md`](for_agent.md)。该文件说明仓库边界、安全执行顺序、外部资产、环境变量、验证命令和预期仓库约定。
 
 目的：提供 DuplexOmni 的数据管线、训练框架和实时服务代码，同时把数据集和 checkpoint 作为独立外部资产管理。
 
@@ -697,7 +724,9 @@ DuplexOmni 面向实时全双工多模态交互：系统在生成语音输出的
 
 使用方法：先运行 `git status --short` 自检，再按 `INSTALL.md`、`DEPENDENCIES.md`、`data_pipeline/README.md`、`training_framework/README.md`、`inference_framework/README.md` 的说明执行。
 
-目录分为三部分：
+### 📁 仓库结构
+
+目录按三个实现层组织：
 
 ```text
 open_source/
@@ -706,9 +735,30 @@ open_source/
   inference_framework/    realtime_serving 服务栈、修改版 vLLM、权重导出与运行约定
   assets/                 小型附带资产，例如参考音色音频
   tools/                  仓库自检工具
+  INSTALL.md              环境和安装说明
+  DEPENDENCIES.md         文件级依赖关系
+  CONCEPTS.md             S1/S2、Thinker/Talker、MTP 和数据切分术语
+  EXTERNAL_ASSETS.md      数据集、checkpoint、TTS、Mimi、MUSAN、FSD50K 等外部资产说明
+  LICENSE                 DuplexOmni 自有源码的 Apache-2.0 许可证
+  THIRD_PARTY_NOTICES.md  上游源码和外部资产说明
   for_agent.md            给自动化 Agent 的执行说明
   requirements.txt
 ```
+
+仓库中唯一附带的音频资产是 `assets/reference_audio/google_Leda.wav`，用于参考音色示例。
+
+### 📦 发布与资产状态
+
+本仓库面向公开源码发布。DuplexOmni 数据集、Thinker/Talker checkpoint 和可选 TTS 资产是外部资产；在公开 Hugging Face 仓库可用前，文档中可能继续使用以下占位符：
+
+```text
+<duplexomni-dataset-repo>
+<duplexomni-thinker-model-repo>
+<duplexomni-talker-model-repo>
+<tts-model-repo-if-needed>
+```
+
+不要提交本地 `data/`、`models/`、`outputs/`、日志、checkpoint、parquet 或生成媒体。顶层 `.gitignore` 和 `.gitignore` 会拦截常见误提交。第三方源码说明见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。
 
 ### 工作内容
 
@@ -857,4 +907,18 @@ This repository vendors or adapts code from the following upstream projects:
 - ms-swift: [modelscope/ms-swift](https://github.com/modelscope/ms-swift)
 - Megatron-LM: [NVIDIA/Megatron-LM](https://github.com/NVIDIA/Megatron-LM)
 
+This repository includes or adapts code from the upstream projects listed
+above. Use, distribution, and redistribution must also comply with the
+corresponding upstream licenses.
+
+This directory was organized and released by GPT-5.5. If you have questions,
+please open an [issue](https://github.com/MuyeHuang/DuplexOmni/issues). If you
+are interested in this project, please consider giving it a star. The full
+training data is about 9TB, so uploading the complete dataset is difficult;
+thank you for your patience.
+
 本仓库包含或改造了以上开源项目的代码。使用、分发或再发布时请同时遵循对应上游项目的许可证要求。
+
+本目录由 GPT-5.5 整理并发布。有疑问请提
+[issue](https://github.com/MuyeHuang/DuplexOmni/issues)；如果对本项目感兴趣，欢迎点一个
+star，谢谢。训练数据约 9TB，完整上传比较困难，请耐心等待。
