@@ -1,0 +1,537 @@
+{
+  "config_name": "slot_emotion_label_space",
+  "config_version": "v1_emotion",
+  "request_id": {
+    "path": "剧本请求.请求ID",
+    "mode": "auto_generate",
+    "prefix": "req_slot_emotion",
+    "start_index": 1,
+    "padding": 6
+  },
+  "fields": [
+    {
+      "key": "primary_interaction_type",
+      "name": "主交互类型",
+      "module": "交互包",
+      "path": "剧本请求.交互包.主交互类型",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "情绪宣泄后入题",
+          "weight": 26
+        },
+        {
+          "value": "焦虑反复确认型",
+          "weight": 22
+        },
+        {
+          "value": "委屈投诉型",
+          "weight": 20
+        },
+        {
+          "value": "情绪崩溃后重建",
+          "weight": 16
+        },
+        {
+          "value": "感激与依赖型",
+          "weight": 16
+        }
+      ]
+    },
+    {
+      "key": "secondary_interaction_type",
+      "name": "次交互类型",
+      "module": "交互包",
+      "path": "剧本请求.交互包.次交互类型",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "说着说着情绪崩溃",
+          "weight": 16
+        },
+        {
+          "value": "说了很多但绕回同一个问题",
+          "weight": 18
+        },
+        {
+          "value": "用户表示助手不理解自己",
+          "weight": 14
+        },
+        {
+          "value": "情绪转好后主动道谢",
+          "weight": 14
+        },
+        {
+          "value": "愤怒后提出不合理要求",
+          "weight": 12
+        },
+        {
+          "value": "情绪起伏中途打断自己",
+          "weight": 10
+        },
+        {
+          "value": "沉默哭泣后继续说",
+          "weight": 10
+        },
+        {
+          "value": "反复说没用没意义",
+          "weight": 6
+        }
+      ]
+    },
+    {
+      "key": "required_events",
+      "name": "必须出现的事件",
+      "module": "交互包",
+      "path": "剧本请求.交互包.必须出现的事件[]",
+      "shape": "multi_select",
+      "assignment_mode": "multi_weighted_random",
+      "selection_sizes": [
+        2,
+        3,
+        4
+      ],
+      "selection_size_weights": [
+        25,
+        50,
+        25
+      ],
+      "options": [
+        {
+          "value": "助手先承接情绪再给信息",
+          "weight": 22
+        },
+        {
+          "value": "用户情绪在对话中有明显起伏",
+          "weight": 18
+        },
+        {
+          "value": "助手说出让用户感到被理解的话",
+          "weight": 20
+        },
+        {
+          "value": "情绪平复后进入实质问题",
+          "weight": 16
+        },
+        {
+          "value": "助手在用户崩溃时稳住场面",
+          "weight": 14
+        },
+        {
+          "value": "用户重复表达同一情绪助手不厌其烦",
+          "weight": 12
+        },
+        {
+          "value": "助手在边界处温和但坚定地拒绝",
+          "weight": 10
+        },
+        {
+          "value": "对话以用户情绪改善为结尾",
+          "weight": 16
+        }
+      ]
+    },
+    {
+      "key": "user_style",
+      "name": "用户风格",
+      "module": "人物风格包",
+      "path": "剧本请求.人物风格包.用户风格",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "焦虑型",
+          "weight": 24
+        },
+        {
+          "value": "委屈型",
+          "weight": 20
+        },
+        {
+          "value": "愤怒型",
+          "weight": 16
+        },
+        {
+          "value": "绝望型",
+          "weight": 12
+        },
+        {
+          "value": "感激依赖型",
+          "weight": 14
+        },
+        {
+          "value": "压抑克制型",
+          "weight": 14
+        }
+      ]
+    },
+    {
+      "key": "user_oral_level",
+      "name": "用户口语化程度",
+      "path": "剧本请求.人物风格包.用户口语化程度",
+      "module": "人物风格包",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "高",
+          "weight": 50
+        },
+        {
+          "value": "低",
+          "weight": 50
+        }
+      ]
+    },
+    {
+      "key": "user_opening",
+      "name": "用户开场",
+      "module": "人物风格包",
+      "path": "剧本请求.人物风格包.用户开场",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "开口就倾诉情绪不说需求",
+          "weight": 22
+        },
+        {
+          "value": "先说我不知道该怎么办",
+          "weight": 20
+        },
+        {
+          "value": "上来就哭诉一件事",
+          "weight": 16
+        },
+        {
+          "value": "开口先道歉说麻烦你了",
+          "weight": 14
+        },
+        {
+          "value": "压着情绪说需求但明显不对",
+          "weight": 14
+        },
+        {
+          "value": "先发泄愤怒再说原因",
+          "weight": 14
+        }
+      ]
+    },
+    {
+      "key": "assistant_style",
+      "name": "助手风格",
+      "module": "人物风格包",
+      "path": "剧本请求.人物风格包.助手风格",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "安抚型",
+          "weight": 30
+        },
+        {
+          "value": "温和",
+          "weight": 26
+        },
+        {
+          "value": "耐心",
+          "weight": 22
+        },
+        {
+          "value": "可信赖型",
+          "weight": 14
+        },
+        {
+          "value": "冷静型",
+          "weight": 8
+        }
+      ]
+    },
+    {
+      "key": "assistant_opening",
+      "name": "助手开场",
+      "module": "人物风格包",
+      "path": "剧本请求.人物风格包.助手开场",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "先表达感同身受再引导",
+          "weight": 28
+        },
+        {
+          "value": "先确认情绪再问发生了什么",
+          "weight": 24
+        },
+        {
+          "value": "先说我在这里然后安静倾听",
+          "weight": 20
+        },
+        {
+          "value": "先给一句稳定的话再承接",
+          "weight": 16
+        },
+        {
+          "value": "先命名情绪再共情",
+          "weight": 12
+        }
+      ]
+    },
+    {
+      "key": "s2_participation_level",
+      "name": "S2参与程度",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2参与程度",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "关",
+          "weight": 15
+        },
+        {
+          "value": "低",
+          "weight": 40
+        },
+        {
+          "value": "中",
+          "weight": 35
+        },
+        {
+          "value": "高",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "key": "s2_message_mode",
+      "name": "S2出消息方式",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2出消息方式",
+      "shape": "single_select",
+      "active_when": {
+        "field": "s2_participation_level",
+        "not_equals": "关"
+      },
+      "omit_when_inactive": true,
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "大段返回",
+          "weight": 50
+        },
+        {
+          "value": "小段返回",
+          "weight": 50
+        }
+      ]
+    },
+    {
+      "key": "s2_verbosity_level",
+      "name": "S2碎嘴程度",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2碎嘴程度",
+      "shape": "single_select",
+      "active_when": {
+        "field": "s2_participation_level",
+        "not_equals": "关"
+      },
+      "omit_when_inactive": true,
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "低频",
+          "weight": 40
+        },
+        {
+          "value": "中频",
+          "weight": 45
+        },
+        {
+          "value": "高频",
+          "weight": 12
+        },
+        {
+          "value": "洪泛",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "key": "s2_delay_level",
+      "name": "S2延迟程度",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2延迟程度",
+      "shape": "single_select",
+      "active_when": {
+        "field": "s2_participation_level",
+        "not_equals": "关"
+      },
+      "omit_when_inactive": true,
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "低延迟",
+          "weight": 35
+        },
+        {
+          "value": "中延迟",
+          "weight": 45
+        },
+        {
+          "value": "高延迟",
+          "weight": 15
+        },
+        {
+          "value": "故障无返回",
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "key": "s2_no_response_recovery",
+      "name": "S2无返回时纠错方式",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2无返回时纠错方式",
+      "shape": "single_select",
+      "active_when": {
+        "all": [
+          {
+            "field": "s2_participation_level",
+            "not_equals": "关"
+          },
+          {
+            "field": "s2_delay_level",
+            "equals": "故障无返回"
+          }
+        ]
+      },
+      "omit_when_inactive": true,
+      "assignment_mode": "conditional_weighted_random",
+      "options": [
+        {
+          "value": "复述用户问题",
+          "weight": 18
+        },
+        {
+          "value": "续写圆场",
+          "weight": 16
+        },
+        {
+          "value": "先垫话等待",
+          "weight": 30
+        },
+        {
+          "value": "降级短答",
+          "weight": 18
+        },
+        {
+          "value": "请求澄清",
+          "weight": 18
+        }
+      ]
+    },
+    {
+      "key": "target_turn_range",
+      "name": "目标轮数范围",
+      "module": "生成约束",
+      "path": "剧本请求.生成约束.目标轮数范围",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "4到8轮",
+          "weight": 40
+        },
+        {
+          "value": "8到12轮",
+          "weight": 45
+        },
+        {
+          "value": "12到16轮",
+          "weight": 15
+        }
+      ]
+    },
+    {
+      "key": "must_end_with_assistant",
+      "name": "必须以助手结尾",
+      "module": "生成约束",
+      "path": "剧本请求.生成约束.必须以助手结尾",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "是",
+          "weight": 90
+        },
+        {
+          "value": "否",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "key": "forbidden_patterns",
+      "name": "禁止出现",
+      "module": "生成约束",
+      "path": "剧本请求.生成约束.禁止出现[]",
+      "shape": "multi_select",
+      "assignment_mode": "multi_weighted_random",
+      "selection_sizes": [
+        10
+      ],
+      "selection_size_weights": [
+        100
+      ],
+      "options": [
+        {
+          "value": "助手在用户情绪未平复时直接给信息",
+          "weight": 22
+        },
+        {
+          "value": "助手对用户情绪表现出不耐烦",
+          "weight": 20
+        },
+        {
+          "value": "助手说你别这样或你冷静一下",
+          "weight": 18
+        },
+        {
+          "value": "助手无视用户情绪直接解决问题",
+          "weight": 20
+        },
+        {
+          "value": "助手对无法满足的要求假装可以做到",
+          "weight": 16
+        },
+        {
+          "value": "User后第一句Assistant直接以S2结果开头",
+          "weight": 14
+        },
+        {
+          "value": "助手情绪承接句空洞无实质共情",
+          "weight": 16
+        },
+        {
+          "value": "对话在用户情绪仍然激动时强行结束",
+          "weight": 14
+        },
+        {
+          "value": "角色口吻前后漂移严重",
+          "weight": 10
+        },
+        {
+          "value": "必须事件缺失",
+          "weight": 16
+        },
+        {
+          "value": "结尾角色不符合约束",
+          "weight": 10
+        }
+      ]
+    }
+  ]
+}

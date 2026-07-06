@@ -1,0 +1,677 @@
+{
+  "config_name": "slot_xp_big_label_space",
+  "config_version": "v3_xp_big",
+  "request_id": {
+    "path": "剧本请求.请求ID",
+    "mode": "auto_generate",
+    "prefix": "req_slot_xp",
+    "start_index": 1,
+    "padding": 6
+  },
+  "fields": [
+    {
+      "key": "primary_interaction_type",
+      "name": "主交互类型",
+      "module": "交互包",
+      "path": "剧本请求.交互包.主交互类型",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "高压连续打断",
+          "weight": 22
+        },
+        {
+          "value": "高压催促压缩",
+          "weight": 18
+        },
+        {
+          "value": "高压改口重算",
+          "weight": 18
+        },
+        {
+          "value": "高压话题乱跳",
+          "weight": 15
+        },
+        {
+          "value": "高压质疑追打",
+          "weight": 12
+        },
+        {
+          "value": "极短句轰炸",
+          "weight": 15
+        },
+        {
+          "value": "高压情绪爆发后软化",
+          "weight": 8
+        },
+        {
+          "value": "高压同时要求多个并发任务",
+          "weight": 7
+        }
+      ]
+    },
+    {
+      "key": "secondary_interaction_type",
+      "name": "次交互类型",
+      "module": "交互包",
+      "path": "剧本请求.交互包.次交互类型",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "刚要回答就被打断",
+          "weight": 12
+        },
+        {
+          "value": "一句话拆成多次打断",
+          "weight": 12
+        },
+        {
+          "value": "刚拿到结果又改条件",
+          "weight": 10
+        },
+        {
+          "value": "刚给结论就被要求更短",
+          "weight": 10
+        },
+        {
+          "value": "连续插话但任务不变",
+          "weight": 9
+        },
+        {
+          "value": "话题满天飞但反复追主问题",
+          "weight": 10
+        },
+        {
+          "value": "上一问没收束就跳下一问",
+          "weight": 9
+        },
+        {
+          "value": "追着问多个子问题",
+          "weight": 7
+        },
+        {
+          "value": "质疑能力后继续追问",
+          "weight": 5
+        },
+        {
+          "value": "先要快答后又要解释",
+          "weight": 7
+        },
+        {
+          "value": "高压后短暂沉默再追问",
+          "weight": 5
+        },
+        {
+          "value": "只回一个词然后继续追",
+          "weight": 8
+        },
+        {
+          "value": "两字催促不补任何信息",
+          "weight": 8
+        },
+        {
+          "value": "短句连发不等回答",
+          "weight": 8
+        },
+        {
+          "value": "用户说完立刻否认刚说的",
+          "weight": 7
+        },
+        {
+          "value": "用户给出矛盾条件",
+          "weight": 6
+        },
+        {
+          "value": "用户打断后自己也说不清楚",
+          "weight": 6
+        },
+        {
+          "value": "用户要求重说但不说哪里不对",
+          "weight": 6
+        }
+      ]
+    },
+    {
+      "key": "required_events",
+      "name": "必须出现的事件",
+      "module": "交互包",
+      "path": "剧本请求.交互包.必须出现的事件[]",
+      "shape": "multi_select",
+      "assignment_mode": "multi_weighted_random",
+      "selection_sizes": [
+        2,
+        3,
+        4
+      ],
+      "selection_size_weights": [
+        30,
+        50,
+        20
+      ],
+      "options": [
+        {
+          "value": "连续打断",
+          "weight": 16
+        },
+        {
+          "value": "一句话被多次切断",
+          "weight": 14
+        },
+        {
+          "value": "催促立刻给结论",
+          "weight": 14
+        },
+        {
+          "value": "条件突变后重算",
+          "weight": 12
+        },
+        {
+          "value": "结果压缩后继续追问",
+          "weight": 11
+        },
+        {
+          "value": "话题跳转后又拉回主线",
+          "weight": 14
+        },
+        {
+          "value": "多个子问题轮番追问",
+          "weight": 12
+        },
+        {
+          "value": "质疑依据或能力",
+          "weight": 7
+        },
+        {
+          "value": "需要解释为何不能沿用旧结论",
+          "weight": 9
+        },
+        {
+          "value": "S2返回前先短承接稳住",
+          "weight": 12
+        },
+        {
+          "value": "刚拿到部分结果又被追问",
+          "weight": 9
+        },
+        {
+          "value": "用户2-5s静默后恢复追问",
+          "weight": 4
+        },
+        {
+          "value": "用户全程每句不超过五个字",
+          "weight": 10
+        },
+        {
+          "value": "助手被迫将回答压缩到一句话",
+          "weight": 10
+        },
+        {
+          "value": "极短问答连续三轮以上",
+          "weight": 8
+        }
+      ]
+    },
+    {
+      "key": "user_style",
+      "name": "用户风格",
+      "module": "人物风格包",
+      "path": "剧本请求.人物风格包.用户风格",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "急躁",
+          "weight": 18
+        },
+        {
+          "value": "质疑",
+          "weight": 16
+        },
+        {
+          "value": "情绪化",
+          "weight": 9
+        },
+        {
+          "value": "极简",
+          "weight": 16
+        },
+        {
+          "value": "跳跃变卦型",
+          "weight": 16
+        },
+        {
+          "value": "自我修正型",
+          "weight": 9
+        },
+        {
+          "value": "中性",
+          "weight": 5
+        },
+        {
+          "value": "口吃",
+          "weight": 5
+        },
+        {
+          "value": "极简短句型",
+          "weight": 6
+        },
+        {
+          "value": "爆发后冷静型",
+          "weight": 7
+        },
+        {
+          "value": "控制型施压",
+          "weight": 7
+        }
+      ]
+    },
+    {
+      "key": "user_oral_level",
+      "name": "用户口语化程度",
+      "path": "剧本请求.人物风格包.用户口语化程度",
+      "module": "人物风格包",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "高",
+          "weight": 50
+        },
+        {
+          "value": "低",
+          "weight": 50
+        }
+      ]
+    },
+    {
+      "key": "user_opening",
+      "name": "用户开场",
+      "module": "人物风格包",
+      "path": "剧本请求.人物风格包.用户开场",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "上来就催",
+          "weight": 18
+        },
+        {
+          "value": "先要结论后补条件",
+          "weight": 16
+        },
+        {
+          "value": "不寒暄直接施压",
+          "weight": 16
+        },
+        {
+          "value": "短句连发",
+          "weight": 14
+        },
+        {
+          "value": "先给半句条件后立刻改口",
+          "weight": 12
+        },
+        {
+          "value": "开口就换话题",
+          "weight": 12
+        },
+        {
+          "value": "一个词直接开口",
+          "weight": 12
+        },
+        {
+          "value": "上来就报一个错误结论要求确认",
+          "weight": 8
+        },
+        {
+          "value": "不说需求先说不满",
+          "weight": 8
+        }
+      ]
+    },
+    {
+      "key": "assistant_style",
+      "name": "助手风格",
+      "module": "人物风格包",
+      "path": "剧本请求.人物风格包.助手风格",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "冷静型",
+          "weight": 28
+        },
+        {
+          "value": "简洁",
+          "weight": 24
+        },
+        {
+          "value": "耐心",
+          "weight": 18
+        },
+        {
+          "value": "可信赖型",
+          "weight": 12
+        },
+        {
+          "value": "专业",
+          "weight": 10
+        },
+        {
+          "value": "推进型",
+          "weight": 8
+        }
+      ]
+    },
+    {
+      "key": "assistant_opening",
+      "name": "助手开场",
+      "module": "人物风格包",
+      "path": "剧本请求.人物风格包.助手开场",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "先短承接再推进",
+          "weight": 26
+        },
+        {
+          "value": "先给一句可执行短答",
+          "weight": 24
+        },
+        {
+          "value": "先稳住情绪再确认",
+          "weight": 16
+        },
+        {
+          "value": "先确认变更再继续",
+          "weight": 14
+        },
+        {
+          "value": "先回应压力再给步骤",
+          "weight": 10
+        },
+        {
+          "value": "先复述当前任务主线",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "key": "s2_participation_level",
+      "name": "S2参与程度",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2参与程度",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "关",
+          "weight": 3
+        },
+        {
+          "value": "低",
+          "weight": 8
+        },
+        {
+          "value": "中",
+          "weight": 50
+        },
+        {
+          "value": "高",
+          "weight": 39
+        }
+      ]
+    },
+    {
+      "key": "s2_message_mode",
+      "name": "S2出消息方式",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2出消息方式",
+      "shape": "single_select",
+      "active_when": {
+        "field": "s2_participation_level",
+        "not_equals": "关"
+      },
+      "omit_when_inactive": true,
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "大段返回",
+          "weight": 25
+        },
+        {
+          "value": "小段返回",
+          "weight": 75
+        }
+      ]
+    },
+    {
+      "key": "s2_verbosity_level",
+      "name": "S2碎嘴程度",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2碎嘴程度",
+      "shape": "single_select",
+      "active_when": {
+        "field": "s2_participation_level",
+        "not_equals": "关"
+      },
+      "omit_when_inactive": true,
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "低频",
+          "weight": 6
+        },
+        {
+          "value": "中频",
+          "weight": 38
+        },
+        {
+          "value": "高频",
+          "weight": 38
+        },
+        {
+          "value": "洪泛",
+          "weight": 18
+        }
+      ]
+    },
+    {
+      "key": "s2_delay_level",
+      "name": "S2延迟程度",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2延迟程度",
+      "shape": "single_select",
+      "active_when": {
+        "field": "s2_participation_level",
+        "not_equals": "关"
+      },
+      "omit_when_inactive": true,
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "低延迟",
+          "weight": 15
+        },
+        {
+          "value": "中延迟",
+          "weight": 50
+        },
+        {
+          "value": "高延迟",
+          "weight": 25
+        },
+        {
+          "value": "故障无返回",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "key": "s2_no_response_recovery",
+      "name": "S2无返回时纠错方式",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2无返回时纠错方式",
+      "shape": "single_select",
+      "active_when": {
+        "all": [
+          {
+            "field": "s2_participation_level",
+            "not_equals": "关"
+          },
+          {
+            "field": "s2_delay_level",
+            "equals": "故障无返回"
+          }
+        ]
+      },
+      "omit_when_inactive": true,
+      "assignment_mode": "conditional_weighted_random",
+      "options": [
+        {
+          "value": "复述用户问题",
+          "weight": 24
+        },
+        {
+          "value": "续写圆场",
+          "weight": 6
+        },
+        {
+          "value": "先垫话等待",
+          "weight": 34
+        },
+        {
+          "value": "降级短答",
+          "weight": 20
+        },
+        {
+          "value": "请求澄清",
+          "weight": 16
+        }
+      ]
+    },
+    {
+      "key": "target_turn_range",
+      "name": "目标轮数范围",
+      "module": "生成约束",
+      "path": "剧本请求.生成约束.目标轮数范围",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "4到8轮",
+          "weight": 60
+        },
+        {
+          "value": "8到12轮",
+          "weight": 28
+        },
+        {
+          "value": "12到16轮",
+          "weight": 12
+        }
+      ]
+    },
+    {
+      "key": "must_end_with_assistant",
+      "name": "必须以助手结尾",
+      "module": "生成约束",
+      "path": "剧本请求.生成约束.必须以助手结尾",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "是",
+          "weight": 80
+        },
+        {
+          "value": "否",
+          "weight": 20
+        }
+      ]
+    },
+    {
+      "key": "forbidden_patterns",
+      "name": "禁止出现",
+      "module": "生成约束",
+      "path": "剧本请求.生成约束.禁止出现[]",
+      "shape": "multi_select",
+      "assignment_mode": "multi_weighted_random",
+      "selection_sizes": [
+        16
+      ],
+      "selection_size_weights": [
+        100
+      ],
+      "options": [
+        {
+          "value": "上一句完整说完却假装被打断",
+          "weight": 18
+        },
+        {
+          "value": "助手主动打断用户",
+          "weight": 18
+        },
+        {
+          "value": "用户连续施压后助手情绪失控",
+          "weight": 18
+        },
+        {
+          "value": "用户打断后助手抢着把原句说完",
+          "weight": 18
+        },
+        {
+          "value": "条件已变却沿用旧结论",
+          "weight": 18
+        },
+        {
+          "value": "旧S2结果在新条件下被直接沿用",
+          "weight": 18
+        },
+        {
+          "value": "为了快答跳过必要承接",
+          "weight": 16
+        },
+        {
+          "value": "User后第一句Assistant直接以S2结果开头",
+          "weight": 16
+        },
+        {
+          "value": "S2故障无返回却假装已拿到结果",
+          "weight": 14
+        },
+        {
+          "value": "高压下把S2草稿直接当最终答案念出",
+          "weight": 14
+        },
+        {
+          "value": "任务主线在连续打断中丢失",
+          "weight": 14
+        },
+        {
+          "value": "话题跳飞后彻底忘记原问题",
+          "weight": 14
+        },
+        {
+          "value": "极短句被扩写成冗长回应",
+          "weight": 14
+        },
+        {
+          "value": "角色口吻前后漂移严重",
+          "weight": 10
+        },
+        {
+          "value": "必须事件缺失",
+          "weight": 16
+        },
+        {
+          "value": "结尾角色不符合约束",
+          "weight": 12
+        }
+      ]
+    }
+  ]
+}

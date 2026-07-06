@@ -1,0 +1,18 @@
+# Minimal dependencies for data_pipeline and realtime_serving entrypoints.
+# Training and vLLM keep their own requirement files under their subdirectories.
+openai
+tqdm
+numpy
+pyarrow
+torch
+transformers
+requests
+websockets
+fastapi
+uvicorn
+scipy
+pillow
+av
+pandas
+soundfile
+pedalboard

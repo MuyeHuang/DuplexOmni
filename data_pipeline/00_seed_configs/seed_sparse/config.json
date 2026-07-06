@@ -1,0 +1,529 @@
+{
+  "config_name": "slot_sparse_label_space",
+  "config_version": "v1_sparse",
+  "request_id": {
+    "path": "剧本请求.请求ID",
+    "mode": "auto_generate",
+    "prefix": "req_slot_sparse",
+    "start_index": 1,
+    "padding": 6
+  },
+  "fields": [
+    {
+      "key": "primary_interaction_type",
+      "name": "主交互类型",
+      "module": "交互包",
+      "path": "剧本请求.交互包.主交互类型",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "用户全程单句极简",
+          "weight": 28
+        },
+        {
+          "value": "助手反复澄清才能推进",
+          "weight": 26
+        },
+        {
+          "value": "用户只确认不主动说",
+          "weight": 20
+        },
+        {
+          "value": "助手从单词推断完整需求",
+          "weight": 16
+        },
+        {
+          "value": "用户说不知道让助手给方案",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "key": "secondary_interaction_type",
+      "name": "次交互类型",
+      "module": "交互包",
+      "path": "剧本请求.交互包.次交互类型",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "只说嗯不说别的",
+          "weight": 20
+        },
+        {
+          "value": "说不知道让助手给方案",
+          "weight": 16
+        },
+        {
+          "value": "重复同一个词",
+          "weight": 12
+        },
+        {
+          "value": "用户被问到了也只回一个字",
+          "weight": 18
+        },
+        {
+          "value": "点头式回应后沉默",
+          "weight": 14
+        },
+        {
+          "value": "说了但表示不确定",
+          "weight": 12
+        },
+        {
+          "value": "用户给了信息但说错了",
+          "weight": 8
+        }
+      ]
+    },
+    {
+      "key": "required_events",
+      "name": "必须出现的事件",
+      "module": "交互包",
+      "path": "剧本请求.交互包.必须出现的事件[]",
+      "shape": "multi_select",
+      "assignment_mode": "multi_weighted_random",
+      "selection_sizes": [
+        2,
+        3,
+        4
+      ],
+      "selection_size_weights": [
+        25,
+        50,
+        25
+      ],
+      "options": [
+        {
+          "value": "助手至少主动追问三次",
+          "weight": 20
+        },
+        {
+          "value": "用户在追问后才补充关键信息",
+          "weight": 18
+        },
+        {
+          "value": "对话靠助手主动推进而非用户驱动",
+          "weight": 20
+        },
+        {
+          "value": "助手从极简回应里正确识别用户意图",
+          "weight": 16
+        },
+        {
+          "value": "用户沉默后助手继续推进",
+          "weight": 12
+        },
+        {
+          "value": "助手给出多选项让用户确认",
+          "weight": 14
+        },
+        {
+          "value": "对话最终完成任务尽管用户一直很简短",
+          "weight": 16
+        },
+        {
+          "value": "助手识别出用户说不知道背后的真实需求",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "key": "user_style",
+      "name": "用户风格",
+      "module": "人物风格包",
+      "path": "剧本请求.人物风格包.用户风格",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "极简沉默型",
+          "weight": 26
+        },
+        {
+          "value": "不知道说什么型",
+          "weight": 22
+        },
+        {
+          "value": "只会确认不会主动",
+          "weight": 20
+        },
+        {
+          "value": "犹豫",
+          "weight": 12
+        },
+        {
+          "value": "中性",
+          "weight": 10
+        },
+        {
+          "value": "礼貌",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "key": "user_oral_level",
+      "name": "用户口语化程度",
+      "path": "剧本请求.人物风格包.用户口语化程度",
+      "module": "人物风格包",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "高",
+          "weight": 50
+        },
+        {
+          "value": "低",
+          "weight": 50
+        }
+      ]
+    },
+    {
+      "key": "user_opening",
+      "name": "用户开场",
+      "module": "人物风格包",
+      "path": "剧本请求.人物风格包.用户开场",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "只说一个词就停了",
+          "weight": 22
+        },
+        {
+          "value": "说了个需求但立刻说不知道怎么描述",
+          "weight": 20
+        },
+        {
+          "value": "开口就问助手你觉得呢",
+          "weight": 16
+        },
+        {
+          "value": "短句开场然后沉默等助手接",
+          "weight": 20
+        },
+        {
+          "value": "说了一半停下来等助手反应",
+          "weight": 22
+        }
+      ]
+    },
+    {
+      "key": "assistant_style",
+      "name": "助手风格",
+      "module": "人物风格包",
+      "path": "剧本请求.人物风格包.助手风格",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "耐心",
+          "weight": 28
+        },
+        {
+          "value": "推进型",
+          "weight": 24
+        },
+        {
+          "value": "温和",
+          "weight": 20
+        },
+        {
+          "value": "简洁",
+          "weight": 16
+        },
+        {
+          "value": "可信赖型",
+          "weight": 12
+        }
+      ]
+    },
+    {
+      "key": "assistant_opening",
+      "name": "助手开场",
+      "module": "人物风格包",
+      "path": "剧本请求.人物风格包.助手开场",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "先接住再追问",
+          "weight": 28
+        },
+        {
+          "value": "先给选项让用户选",
+          "weight": 24
+        },
+        {
+          "value": "先复述理解再确认",
+          "weight": 22
+        },
+        {
+          "value": "先表示理解再引导展开",
+          "weight": 16
+        },
+        {
+          "value": "开场给一句兜底然后追问",
+          "weight": 10
+        }
+      ]
+    },
+    {
+      "key": "s2_participation_level",
+      "name": "S2参与程度",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2参与程度",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "关",
+          "weight": 10
+        },
+        {
+          "value": "低",
+          "weight": 35
+        },
+        {
+          "value": "中",
+          "weight": 40
+        },
+        {
+          "value": "高",
+          "weight": 15
+        }
+      ]
+    },
+    {
+      "key": "s2_message_mode",
+      "name": "S2出消息方式",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2出消息方式",
+      "shape": "single_select",
+      "active_when": {
+        "field": "s2_participation_level",
+        "not_equals": "关"
+      },
+      "omit_when_inactive": true,
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "大段返回",
+          "weight": 40
+        },
+        {
+          "value": "小段返回",
+          "weight": 60
+        }
+      ]
+    },
+    {
+      "key": "s2_verbosity_level",
+      "name": "S2碎嘴程度",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2碎嘴程度",
+      "shape": "single_select",
+      "active_when": {
+        "field": "s2_participation_level",
+        "not_equals": "关"
+      },
+      "omit_when_inactive": true,
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "低频",
+          "weight": 30
+        },
+        {
+          "value": "中频",
+          "weight": 50
+        },
+        {
+          "value": "高频",
+          "weight": 16
+        },
+        {
+          "value": "洪泛",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "key": "s2_delay_level",
+      "name": "S2延迟程度",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2延迟程度",
+      "shape": "single_select",
+      "active_when": {
+        "field": "s2_participation_level",
+        "not_equals": "关"
+      },
+      "omit_when_inactive": true,
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "低延迟",
+          "weight": 30
+        },
+        {
+          "value": "中延迟",
+          "weight": 45
+        },
+        {
+          "value": "高延迟",
+          "weight": 18
+        },
+        {
+          "value": "故障无返回",
+          "weight": 7
+        }
+      ]
+    },
+    {
+      "key": "s2_no_response_recovery",
+      "name": "S2无返回时纠错方式",
+      "module": "S2策略包",
+      "path": "剧本请求.S2策略包.S2无返回时纠错方式",
+      "shape": "single_select",
+      "active_when": {
+        "all": [
+          {
+            "field": "s2_participation_level",
+            "not_equals": "关"
+          },
+          {
+            "field": "s2_delay_level",
+            "equals": "故障无返回"
+          }
+        ]
+      },
+      "omit_when_inactive": true,
+      "assignment_mode": "conditional_weighted_random",
+      "options": [
+        {
+          "value": "复述用户问题",
+          "weight": 20
+        },
+        {
+          "value": "续写圆场",
+          "weight": 8
+        },
+        {
+          "value": "先垫话等待",
+          "weight": 30
+        },
+        {
+          "value": "降级短答",
+          "weight": 22
+        },
+        {
+          "value": "请求澄清",
+          "weight": 20
+        }
+      ]
+    },
+    {
+      "key": "target_turn_range",
+      "name": "目标轮数范围",
+      "module": "生成约束",
+      "path": "剧本请求.生成约束.目标轮数范围",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "4到8轮",
+          "weight": 50
+        },
+        {
+          "value": "8到12轮",
+          "weight": 38
+        },
+        {
+          "value": "12到16轮",
+          "weight": 12
+        }
+      ]
+    },
+    {
+      "key": "must_end_with_assistant",
+      "name": "必须以助手结尾",
+      "module": "生成约束",
+      "path": "剧本请求.生成约束.必须以助手结尾",
+      "shape": "single_select",
+      "assignment_mode": "weighted_random",
+      "options": [
+        {
+          "value": "是",
+          "weight": 85
+        },
+        {
+          "value": "否",
+          "weight": 15
+        }
+      ]
+    },
+    {
+      "key": "forbidden_patterns",
+      "name": "禁止出现",
+      "module": "生成约束",
+      "path": "剧本请求.生成约束.禁止出现[]",
+      "shape": "multi_select",
+      "assignment_mode": "multi_weighted_random",
+      "selection_sizes": [
+        10
+      ],
+      "selection_size_weights": [
+        100
+      ],
+      "options": [
+        {
+          "value": "助手在信息不足时直接给出结论",
+          "weight": 20
+        },
+        {
+          "value": "用户台词被扩写成正常长度",
+          "weight": 20
+        },
+        {
+          "value": "助手把用户的沉默当成默认同意",
+          "weight": 18
+        },
+        {
+          "value": "助手一次问多个问题把用户问蒙",
+          "weight": 18
+        },
+        {
+          "value": "助手假设了用户没说过的条件",
+          "weight": 18
+        },
+        {
+          "value": "对话在需求未确认时就结束",
+          "weight": 16
+        },
+        {
+          "value": "User后第一句Assistant直接以S2结果开头",
+          "weight": 14
+        },
+        {
+          "value": "S2尚未到达就直接给出事实型回答",
+          "weight": 14
+        },
+        {
+          "value": "角色口吻前后漂移严重",
+          "weight": 10
+        },
+        {
+          "value": "必须事件缺失",
+          "weight": 16
+        },
+        {
+          "value": "结尾角色不符合约束",
+          "weight": 10
+        }
+      ]
+    }
+  ]
+}
