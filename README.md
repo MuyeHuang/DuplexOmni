@@ -39,8 +39,7 @@ for your patience.
 
 ## For Developers
 
-Start with the static release check, then read the setup documents for the part
-of the stack you want to run:
+Read the setup documents for the part of the stack you want to run:
 
 ```bash
 git status --short
@@ -60,7 +59,7 @@ Recommended reading order:
 
 If you use an automated coding or runtime agent, provide
 [`for_agent.md`](for_agent.md) first. It defines safe execution boundaries,
-required assets, validation commands, and the expected repository contract.
+required assets, validation boundaries and the expected repository contract.
 
 ## Repository Layout
 
@@ -72,7 +71,6 @@ open_source/
   training_framework/     Qwen3-Omni E2E training framework based on ms-swift/Megatron
   inference_framework/    realtime_serving serving stack, modified vLLM fork, export/runtime conventions
   assets/                 small bundled assets such as the reference voice prompt
-  tools/                  repository validation utilities
   INSTALL.md              environment and installation guide
   DEPENDENCIES.md         file-level dependency map
   CONCEPTS.md             terminology for S1/S2, Thinker/Talker, MTP, and data splits
@@ -101,9 +99,8 @@ documentation may use placeholder identifiers:
 ```
 
 Do not commit local `data/`, `models/`, `outputs/`, logs, checkpoints, parquet,
-or generated media. The top-level `.gitignore` and `.gitignore`
-guard against common accidental commits. Third-party source notices are listed
-in `THIRD_PARTY_NOTICES.md`.
+or generated media. The top-level `.gitignore` blocks common generated files.
+Third-party source notices are listed in `THIRD_PARTY_NOTICES.md`.
 
 Purpose: provide the DuplexOmni data pipeline, training framework, and realtime
 serving source code while keeping datasets and checkpoints as separate external
@@ -425,14 +422,14 @@ export S2_API_KEY=EMPTY
 
 Run commands from the `open_source/` directory unless noted otherwise.
 
-### 1. Validate the repository tree
+### 1. Inspect the repository tree
 
 ```bash
 git status --short
 ```
 
-This verifies required files, forbidden generated artifacts, sensitive internal
-strings, and Python syntax for `data_pipeline` and `realtime_serving`.
+The command should not show generated data, logs, checkpoints, parquet files, or
+model weights before you commit or share the repository.
 
 ### 2. Generate and clean seed samples
 
@@ -648,7 +645,8 @@ find . -type f \( -name '*.pyc' -o -name '*.log' -o -name 'samples*.jsonl' \)
 
 Expected:
 
-- `git status --short` shows no generated files.
+- `git status --short` does not show generated data, logs, media, parquet, or
+  cache files.
 - No generated data, logs, media, parquet, or cache files are present.
 - No private endpoint, private key, production path, or model checkpoint path is
   present.
@@ -733,7 +731,7 @@ DuplexOmni 面向实时全双工多模态交互：系统在生成语音输出的
 
 ### 🛠️ 面向开发者
 
-建议先运行静态发布检查，再根据需要阅读对应组件的安装和运行文档：
+先阅读对应组件的安装和运行文档：
 
 ```bash
 git status --short
@@ -747,7 +745,7 @@ git status --short
 4. [`DEPENDENCIES.md`](DEPENDENCIES.md)：文件级依赖关系。
 5. [`data_pipeline/README.md`](data_pipeline/README.md)、[`training_framework/README.md`](training_framework/README.md) 和 [`inference_framework/README.md`](inference_framework/README.md)：各子系统的具体工作流。
 
-如果使用自动化编码或运行工具，请先阅读 [`for_agent.md`](for_agent.md)。该文件说明仓库边界、安全执行顺序、外部资产、环境变量、验证命令和预期仓库约定。
+如果使用自动化编码或运行工具，请先阅读 [`for_agent.md`](for_agent.md)。该文件说明仓库边界、安全执行顺序、外部资产、环境变量、验证边界和预期仓库约定。
 
 目的：提供 DuplexOmni 的数据管线、训练框架和实时服务代码，同时把数据集和 checkpoint 作为独立外部资产管理。
 
@@ -765,7 +763,6 @@ open_source/
   training_framework/     基于 ms-swift/Megatron 的 Qwen3-Omni E2E 训练框架
   inference_framework/    realtime_serving 服务栈、修改版 vLLM、权重导出与运行约定
   assets/                 小型附带资产，例如参考音色音频
-  tools/                  仓库自检工具
   INSTALL.md              环境和安装说明
   DEPENDENCIES.md         文件级依赖关系
   CONCEPTS.md             S1/S2、Thinker/Talker、MTP 和数据切分术语
@@ -789,7 +786,7 @@ open_source/
 <tts-model-repo-if-needed>
 ```
 
-不要提交本地 `data/`、`models/`、`outputs/`、日志、checkpoint、parquet 或生成媒体。顶层 `.gitignore` 和 `.gitignore` 会拦截常见误提交。第三方源码说明见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。
+不要提交本地 `data/`、`models/`、`outputs/`、日志、checkpoint、parquet 或生成媒体。顶层 `.gitignore` 会拦截常见生成文件。第三方源码说明见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。
 
 ### 🧩 本仓库做什么
 
@@ -1069,13 +1066,13 @@ export S2_API_KEY=EMPTY
 
 除非特别说明，以下命令都从 `open_source/` 目录运行。
 
-#### 1. 检查仓库树
+#### 1. 检查仓库状态
 
 ```bash
 git status --short
 ```
 
-该命令会检查必需文件、禁止提交的生成产物、敏感内部字符串，以及 `data_pipeline` 和 `realtime_serving` 中 Python 文件的语法。
+该命令会显示当前工作区是否有未提交改动。生成数据、日志、parquet、checkpoint 和模型权重不应进入仓库。
 
 #### 2. 生成并清洗 seed samples
 
@@ -1273,7 +1270,7 @@ ssh -L 28765:127.0.0.1:8765 user@your-server
 python3 omni_realtime_mac_client.py --server ws://127.0.0.1:28765
 ```
 
-### 🧪 仓库自检
+### 🧪 仓库卫生检查
 
 公开分享仓库或运行完整管线前，请执行：
 
@@ -1284,7 +1281,7 @@ find . -type f \( -name '*.pyc' -o -name '*.log' -o -name 'samples*.jsonl' \)
 
 期望结果：
 
-- `git status --short` 不显示生成文件；
+- `git status --short` 不显示生成数据、日志、媒体、parquet 或 cache 文件；
 - 仓库内没有生成数据、日志、媒体、parquet 或 cache 文件；
 - 仓库内没有内部 endpoint、私有 key、生产路径或模型 checkpoint 路径。
 

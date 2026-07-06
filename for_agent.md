@@ -35,10 +35,10 @@ private production paths.
 ```bash
 cd /path/to/open_source
 git status --short
-git status --short
+find . -type f \( -name '*.pyc' -o -name '*.log' -o -name 'samples*.jsonl' \)
 ```
 
-If validation fails, report the exact failing paths before changing files.
+If generated files are present, report the exact paths before changing files.
 
 ## External Assets
 
@@ -143,10 +143,10 @@ inference_framework/vllm_qwen3_omni/
 ```bash
 cd /path/to/open_source
 git status --short
-git status --short
+find . -type f \( -name '*.pyc' -o -name '*.log' -o -name 'samples*.jsonl' \)
 ```
 
-如果自检失败，先报告失败路径，再决定是否修改文件。
+如果发现生成文件，先报告具体路径，再决定是否修改文件。
 
 ## 外部资产
 
