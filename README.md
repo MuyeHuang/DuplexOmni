@@ -1,24 +1,64 @@
 # DuplexOmni
 
-## English
+**DuplexOmni** is a realtime multimodal full-duplex interaction system for
+listening, seeing, thinking, and speaking in parallel. This repository contains
+the public source code for the data pipeline, training framework, and realtime
+serving stack described in the paper:
 
-This repository contains the open-source code for **DuplexOmni**, a realtime
-multimodal full-duplex interaction system described in the paper
-[DuplexOmni: Real-Time Listening, Seeing, Thinking, and Speaking for
-Full-Duplex Interaction](https://arxiv.org/abs/2606.09186).
+> [DuplexOmni: Real-Time Listening, Seeing, Thinking, and Speaking for
+> Full-Duplex Interaction](https://arxiv.org/abs/2606.09186)
 
-In plain terms: this repository contains the code used to build the training
-data, train the interaction model, and serve a realtime system that can keep
-listening and watching while it speaks. It does not include the generated
-datasets or model weights; those should be downloaded from Hugging Face or
-another artifact store and passed in through local paths.
+Language: **English** | [中文说明](#中文说明)
 
-If you are using an automated coding/runtime agent instead of installing this
-manually, give the agent [`for_agent.md`](for_agent.md) first. It summarizes the
-repository contract, safe execution order, required assets, and validation
-commands.
+## Overview
 
-The code tree is organized as three parts:
+DuplexOmni targets realtime interactive agents that can continue processing
+streaming audio/video input while producing speech output. The system separates
+fast interaction from slower reasoning: the interaction model handles
+low-latency listening, seeing, and speaking, while a pluggable System-2 layer can
+perform heavier reasoning, retrieval, or tool use in the background.
+
+This source release includes:
+
+- data generation and cleaning pipelines for duplex dialogue sessions;
+- TTS, alignment, parquet, Mimi-codec, and noise augmentation utilities;
+- Qwen3-Omni E2E training code based on ms-swift and Megatron;
+- a realtime inference stack with a modified vLLM runtime;
+- documentation for external datasets, checkpoints, and runtime dependencies.
+
+Generated datasets, trained model weights, checkpoints, logs, internal service
+endpoints, generated parquet, and generated media are not included in this
+repository. When public artifact repositories are available, download those
+assets separately and pass their local paths to the relevant scripts.
+
+## For Developers
+
+Start with the static release check, then read the setup documents for the part
+of the stack you want to run:
+
+```bash
+git status --short
+```
+
+Recommended reading order:
+
+1. [`CONCEPTS.md`](CONCEPTS.md) for terminology and training signals.
+2. [`EXTERNAL_ASSETS.md`](EXTERNAL_ASSETS.md) for datasets, checkpoints, noise
+   corpora, and placeholder artifact repositories.
+3. [`INSTALL.md`](INSTALL.md) for environment setup.
+4. [`DEPENDENCIES.md`](DEPENDENCIES.md) for file-level dependencies.
+5. [`data_pipeline/README.md`](data_pipeline/README.md),
+   [`training_framework/README.md`](training_framework/README.md), and
+   [`inference_framework/README.md`](inference_framework/README.md) for
+   component-specific workflows.
+
+If you use an automated coding or runtime agent, provide
+[`for_agent.md`](for_agent.md) first. It defines safe execution boundaries,
+required assets, validation commands, and the expected repository contract.
+
+## Repository Layout
+
+The code tree is organized as three implementation layers:
 
 ```text
 open_source/
@@ -37,19 +77,15 @@ open_source/
   requirements.txt
 ```
 
-Production datasets, model checkpoints, generated audio/video/parquet files,
-logs, and internal service endpoints are not committed into this code tree. The
-only bundled audio asset is the small reference voice sample under
-`assets/reference_audio/google_Leda.wav`. The repository is designed so datasets
-and weights can live in external Hugging Face repositories or local artifact
-directories and then be referenced by local paths or download scripts.
+The only bundled audio asset is the small reference voice sample under
+`assets/reference_audio/google_Leda.wav`.
 
-## Public Release Status
+## Release And Assets
 
-This repository is ready to host the public **source code**. Generated
-DuplexOmni datasets and trained thinker/talker checkpoints are still external
-assets and may use placeholder repository names until the public Hugging Face
-repositories are available:
+This repository is intended for the public **source code** release. DuplexOmni
+datasets, trained thinker/talker checkpoints, and optional TTS assets are
+external artifacts. Until public Hugging Face repositories are available, the
+documentation may use placeholder identifiers:
 
 ```text
 <duplexomni-dataset-repo>
@@ -65,7 +101,7 @@ in `THIRD_PARTY_NOTICES.md`.
 
 Purpose: provide the DuplexOmni data pipeline, training framework, and realtime
 serving source code while keeping datasets and checkpoints as separate external
-assets.
+artifacts.
 
 Code role: `data_pipeline` builds the dataset, `training_framework` trains the
 Qwen3-Omni E2E model, and `inference_framework` serves the realtime system.
@@ -635,15 +671,25 @@ those directories or pass explicit CLI arguments.
 
 ## 中文说明
 
-本仓库是 **DuplexOmni** 开源代码，对应论文
+返回：[English overview](#overview)
+
+本仓库提供 **DuplexOmni** 的公开源码，对应论文
 [DuplexOmni: Real-Time Listening, Seeing, Thinking, and Speaking for
 Full-Duplex Interaction](https://arxiv.org/abs/2606.09186)。
 
-用人话说：这个仓库放的是“怎么造数据、怎么训练、怎么部署实时全双工多模态智能体”的代码。系统目标是在说话时继续听、继续看，并且可以把较慢的思考/工具调用放到后台。代码开源，数据、模型权重、生成音频、生成 parquet、日志和内部服务地址不放入仓库；运行时需要从 Hugging Face 或其他 artifact store 下载外部资产，再通过本地路径或下载脚本传入。
+DuplexOmni 面向实时全双工多模态交互：系统在生成语音输出的同时持续处理流式音频/视频输入，并通过可插拔的 System-2 层承载较慢的推理、检索或工具调用。本仓库覆盖从训练数据构建、模型训练到实时推理服务的主要工程组件。
 
-当前公开状态：本仓库可以先发布源码；DuplexOmni 数据集、Thinker/Talker checkpoint 和 TTS 等外部资产仓库尚未发布时，可继续使用 `<duplexomni-dataset-repo>`、`<duplexomni-thinker-model-repo>`、`<duplexomni-talker-model-repo>` 等占位符。不要提交本地 `data/`、`models/`、`outputs/`、日志、checkpoint、parquet 或生成媒体；顶层 `.gitignore` 和 `.gitignore` 会做发布前保护。第三方源码说明见 `THIRD_PARTY_NOTICES.md`。
+本源码发布包含：
 
-如果用户让自动化 Agent 代替自己安装和运行，请先把 [`for_agent.md`](for_agent.md) 交给 Agent。该文件专门说明仓库约束、安全执行顺序、外部资产、环境变量和验证命令。
+- duplex dialogue 数据生成、清洗与修复流程；
+- TTS、对齐、parquet 构建、Mimi codec 提取和噪声增强工具；
+- 基于 ms-swift/Megatron 的 Qwen3-Omni E2E 训练框架；
+- 基于修改版 vLLM 的实时推理服务栈；
+- 外部数据、checkpoint 和运行依赖的文档说明。
+
+数据集、模型权重、checkpoint、日志、生成 parquet、生成音视频和内部服务地址不包含在源码仓库中。相关资产发布前，文档中会保留 `<duplexomni-dataset-repo>`、`<duplexomni-thinker-model-repo>`、`<duplexomni-talker-model-repo>` 等占位符。下载后的本地资产应放在 `data/`、`models/` 或 `outputs/` 等目录中，不应提交到源码仓库；顶层 `.gitignore` 与 `.gitignore` 会做发布前检查。第三方源码说明见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。
+
+如果使用自动化编码或运行工具，请先阅读 [`for_agent.md`](for_agent.md)。该文件说明仓库边界、安全执行顺序、外部资产、环境变量和验证命令。
 
 目的：提供 DuplexOmni 的数据管线、训练框架和实时服务代码，同时把数据集和 checkpoint 作为独立外部资产管理。
 
