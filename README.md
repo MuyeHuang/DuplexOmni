@@ -10,7 +10,9 @@ serving stack described in the paper:
 📄 Paper: [DuplexOmni: Real-Time Listening, Seeing, Thinking, and Speaking for
 Full-Duplex Interaction](https://arxiv.org/abs/2606.09186)
 
-🤗 Hugging Face: [MuyeHuang/DuplexOmni](https://huggingface.co/MuyeHuang/DuplexOmni)
+🤗 Model weights: [MuyeHuang/DuplexOmni](https://huggingface.co/MuyeHuang/DuplexOmni)
+
+🗂️ Dataset metadata: [MuyeHuang/DuplexOmni-Data](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data)
 
 ## Overview
 
@@ -30,15 +32,17 @@ This source release includes:
 
 Generated datasets, trained model weights, checkpoints, logs, internal service
 endpoints, generated parquet, and generated media are not included in this
-repository. Released assets are available from the official
-[DuplexOmni Hugging Face repository](https://huggingface.co/MuyeHuang/DuplexOmni);
-download them separately and pass their local paths to the relevant scripts.
+GitHub repository. Model weights are released through the official
+[DuplexOmni model repository](https://huggingface.co/MuyeHuang/DuplexOmni).
+The complete trainable dataset is about 9TB and is too large to host in full, so
+we release its reproducible metadata in
+[DuplexOmni-Data](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data).
+Processing this metadata with the data pipeline in this repository recreates
+the complete training dataset in the same form.
 
 Questions and contributions are welcome through
 [GitHub Issues](https://github.com/MuyeHuang/DuplexOmni/issues). If you are
-interested in this work, please consider starring the repository. The full
-training data is about 9TB, so complete public upload may take time; thank you
-for your patience.
+interested in this work, please consider starring the repository.
 
 ## For Developers
 
@@ -90,11 +94,14 @@ The only bundled audio asset is the small reference voice sample under
 ## Release And Assets
 
 This repository is intended for the public **source code** release. The official
-[DuplexOmni Hugging Face repository](https://huggingface.co/MuyeHuang/DuplexOmni)
-is now public. Datasets, trained thinker/talker checkpoints, and optional TTS
-assets remain external to this GitHub repository, and large files may be uploaded
-incrementally. Documentation may still use placeholder identifiers for assets
-that are not yet available:
+[model-weight repository](https://huggingface.co/MuyeHuang/DuplexOmni) and
+[dataset-metadata repository](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data)
+are public. Because the complete trainable dataset is about 9TB, the dataset
+repository provides reproducible metadata instead of hosting every generated
+training artifact. Run that metadata through this repository's data pipeline to
+recreate the complete dataset in the same form. Optional TTS and other external
+assets remain outside this GitHub repository. Documentation may still use
+placeholder identifiers where a local path or an optional asset is required:
 
 ```text
 <duplexomni-dataset-repo>
@@ -685,8 +692,8 @@ those directories or pass explicit CLI arguments.
 - This source tree does not bundle weights or datasets directly; those assets
   are expected as separate Hugging Face repositories or local artifact
   directories.
-- Hugging Face dataset/model repository names may remain placeholders until the
-  public artifact uploads are complete.
+- Some commands retain placeholders for local paths and optional external assets;
+  replace them with the downloaded paths required by the relevant stage.
 - `localhost` endpoints are placeholders for OpenAI-compatible services.
 - `models/...`, `data/...`, and `outputs/...` are placeholders.
 - Large framework directories (`training_framework` and `vllm_qwen3_omni`) retain
@@ -718,7 +725,9 @@ projects, please cite the paper:
 📄 论文：[DuplexOmni: Real-Time Listening, Seeing, Thinking, and Speaking for
 Full-Duplex Interaction](https://arxiv.org/abs/2606.09186)
 
-🤗 Hugging Face：[MuyeHuang/DuplexOmni](https://huggingface.co/MuyeHuang/DuplexOmni)
+🤗 模型权重：[MuyeHuang/DuplexOmni](https://huggingface.co/MuyeHuang/DuplexOmni)
+
+🗂️ 数据集 metadata：[MuyeHuang/DuplexOmni-Data](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data)
 
 ### 🚀 概览
 
@@ -732,11 +741,13 @@ DuplexOmni 面向实时全双工多模态交互：系统在生成语音输出的
 - 基于修改版 vLLM 的实时推理服务栈；
 - 外部数据、checkpoint 和运行依赖的文档说明。
 
-生成数据集、训练后的模型权重、checkpoint、日志、内部服务地址、生成 parquet 和生成媒体文件不包含在本仓库中。已公开的资产可从官方
-[DuplexOmni Hugging Face 仓库](https://huggingface.co/MuyeHuang/DuplexOmni)
-单独下载，再通过脚本参数或环境变量传入本地路径。
+生成数据集、训练后的模型权重、checkpoint、日志、内部服务地址、生成 parquet 和生成媒体文件不包含在本 GitHub 仓库中。模型权重发布在官方
+[DuplexOmni 模型仓库](https://huggingface.co/MuyeHuang/DuplexOmni)。
+完整可训练数据集约 9TB，体积过大，无法全量托管，因此我们在
+[DuplexOmni-Data](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data)
+中直接发布可复现的 metadata。使用本仓库的数据管线处理这些 metadata，可以原样制作完整训练数据集。
 
-如有问题或建议，欢迎通过 [GitHub Issues](https://github.com/MuyeHuang/DuplexOmni/issues) 反馈；如果你对本项目感兴趣，也欢迎点一个 star。完整训练数据约 9TB，公开完整上传需要较长时间，请耐心等待。
+如有问题或建议，欢迎通过 [GitHub Issues](https://github.com/MuyeHuang/DuplexOmni/issues) 反馈；如果你对本项目感兴趣，也欢迎点一个 star。
 
 ### 🛠️ 面向开发者
 
@@ -787,8 +798,9 @@ open_source/
 ### 📦 发布与资产状态
 
 本仓库面向公开源码发布。官方
-[DuplexOmni Hugging Face 仓库](https://huggingface.co/MuyeHuang/DuplexOmni)
-已公开。DuplexOmni 数据集、Thinker/Talker checkpoint 和可选 TTS 资产仍作为 GitHub 之外的独立资产管理，大型文件可能按批次持续上传。尚未可用的资产在文档中可能继续使用以下占位符：
+[模型权重仓库](https://huggingface.co/MuyeHuang/DuplexOmni)
+和[数据集 metadata 仓库](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data)
+均已公开。由于完整可训练数据集约 9TB，数据集仓库不全量托管所有生成后的训练产物，而是提供可复现 metadata。使用本仓库的数据管线处理这些 metadata，可以原样制作完整数据集。可选 TTS 和其他外部资产仍在 GitHub 之外管理。文档中需要本地路径或可选资产的位置可能仍使用以下占位符：
 
 ```text
 <duplexomni-dataset-repo>
@@ -1321,7 +1333,7 @@ Hugging Face model repos
 ### ⚠️ 重要限制
 
 - 本源码树不直接包含权重或数据集；这些资产预期以独立 Hugging Face 仓库或本地 artifact 目录提供。
-- Hugging Face 数据集/模型仓库名称在公开资产上传完成前可能继续使用占位符。
+- 部分命令仍为本地路径和可选外部资产保留占位符，请按对应阶段的要求替换为下载后的本地路径。
 - `localhost` endpoint 是 OpenAI-compatible 服务占位符。
 - `models/...`、`data/...` 和 `outputs/...` 是占位路径。
 - 大型框架目录（`training_framework` 和 `vllm_qwen3_omni`）保留上游 examples 和 tests；自定义数据和模型产物已排除。
@@ -1356,12 +1368,16 @@ corresponding upstream licenses.
 
 This directory was organized and released by GPT-5.5. If you have questions,
 please open an [issue](https://github.com/MuyeHuang/DuplexOmni/issues). If you
-are interested in this project, please consider giving it a star. The full
-training data is about 9TB, so uploading the complete dataset is difficult;
-thank you for your patience.
+are interested in this project, please consider giving it a star. The complete
+trainable dataset is about 9TB and is too large to host in full. Reproducible
+metadata is available from
+[DuplexOmni-Data](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data) and
+can be processed with this repository's data pipeline to recreate the complete
+dataset in the same form.
 
 本仓库包含或改造了以上开源项目的代码。使用、分发或再发布时请同时遵循对应上游项目的许可证要求。
 
 本目录由 GPT-5.5 整理并发布。有疑问请提
 [issue](https://github.com/MuyeHuang/DuplexOmni/issues)；如果对本项目感兴趣，欢迎点一个
-star，谢谢。训练数据约 9TB，完整上传比较困难，请耐心等待。
+star，谢谢。完整可训练数据集约 9TB，体积过大，无法全量托管。可复现 metadata 已发布在
+[DuplexOmni-Data](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data)，使用本仓库的数据管线处理后，可以原样制作完整数据集。
