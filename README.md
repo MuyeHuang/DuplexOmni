@@ -10,6 +10,8 @@ serving stack described in the paper:
 📄 Paper: [DuplexOmni: Real-Time Listening, Seeing, Thinking, and Speaking for
 Full-Duplex Interaction](https://arxiv.org/abs/2606.09186)
 
+🤗 Hugging Face: [MuyeHuang/DuplexOmni](https://huggingface.co/MuyeHuang/DuplexOmni)
+
 ## Overview
 
 DuplexOmni targets realtime interactive agents that can continue processing
@@ -28,8 +30,9 @@ This source release includes:
 
 Generated datasets, trained model weights, checkpoints, logs, internal service
 endpoints, generated parquet, and generated media are not included in this
-repository. When public artifact repositories are available, download those
-assets separately and pass their local paths to the relevant scripts.
+repository. Released assets are available from the official
+[DuplexOmni Hugging Face repository](https://huggingface.co/MuyeHuang/DuplexOmni);
+download them separately and pass their local paths to the relevant scripts.
 
 Questions and contributions are welcome through
 [GitHub Issues](https://github.com/MuyeHuang/DuplexOmni/issues). If you are
@@ -86,10 +89,12 @@ The only bundled audio asset is the small reference voice sample under
 
 ## Release And Assets
 
-This repository is intended for the public **source code** release. DuplexOmni
-datasets, trained thinker/talker checkpoints, and optional TTS assets are
-external artifacts. Until public Hugging Face repositories are available, the
-documentation may use placeholder identifiers:
+This repository is intended for the public **source code** release. The official
+[DuplexOmni Hugging Face repository](https://huggingface.co/MuyeHuang/DuplexOmni)
+is now public. Datasets, trained thinker/talker checkpoints, and optional TTS
+assets remain external to this GitHub repository, and large files may be uploaded
+incrementally. Documentation may still use placeholder identifiers for assets
+that are not yet available:
 
 ```text
 <duplexomni-dataset-repo>
@@ -713,6 +718,8 @@ projects, please cite the paper:
 📄 论文：[DuplexOmni: Real-Time Listening, Seeing, Thinking, and Speaking for
 Full-Duplex Interaction](https://arxiv.org/abs/2606.09186)
 
+🤗 Hugging Face：[MuyeHuang/DuplexOmni](https://huggingface.co/MuyeHuang/DuplexOmni)
+
 ### 🚀 概览
 
 DuplexOmni 面向实时全双工多模态交互：系统在生成语音输出的同时持续处理流式音频/视频输入，并通过可插拔的 System-2 层承载较慢的推理、检索或工具调用。本仓库覆盖从训练数据构建、模型训练到实时推理服务的主要工程组件。
@@ -725,7 +732,9 @@ DuplexOmni 面向实时全双工多模态交互：系统在生成语音输出的
 - 基于修改版 vLLM 的实时推理服务栈；
 - 外部数据、checkpoint 和运行依赖的文档说明。
 
-生成数据集、训练后的模型权重、checkpoint、日志、内部服务地址、生成 parquet 和生成媒体文件不包含在本仓库中。公开资产仓库可用后，请单独下载并通过脚本参数或环境变量传入本地路径。
+生成数据集、训练后的模型权重、checkpoint、日志、内部服务地址、生成 parquet 和生成媒体文件不包含在本仓库中。已公开的资产可从官方
+[DuplexOmni Hugging Face 仓库](https://huggingface.co/MuyeHuang/DuplexOmni)
+单独下载，再通过脚本参数或环境变量传入本地路径。
 
 如有问题或建议，欢迎通过 [GitHub Issues](https://github.com/MuyeHuang/DuplexOmni/issues) 反馈；如果你对本项目感兴趣，也欢迎点一个 star。完整训练数据约 9TB，公开完整上传需要较长时间，请耐心等待。
 
@@ -777,7 +786,9 @@ open_source/
 
 ### 📦 发布与资产状态
 
-本仓库面向公开源码发布。DuplexOmni 数据集、Thinker/Talker checkpoint 和可选 TTS 资产是外部资产；在公开 Hugging Face 仓库可用前，文档中可能继续使用以下占位符：
+本仓库面向公开源码发布。官方
+[DuplexOmni Hugging Face 仓库](https://huggingface.co/MuyeHuang/DuplexOmni)
+已公开。DuplexOmni 数据集、Thinker/Talker checkpoint 和可选 TTS 资产仍作为 GitHub 之外的独立资产管理，大型文件可能按批次持续上传。尚未可用的资产在文档中可能继续使用以下占位符：
 
 ```text
 <duplexomni-dataset-repo>
