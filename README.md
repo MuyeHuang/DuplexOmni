@@ -12,7 +12,9 @@ Full-Duplex Interaction](https://arxiv.org/abs/2606.09186)
 
 🤗 Model weights: [MuyeHuang/DuplexOmni](https://huggingface.co/MuyeHuang/DuplexOmni)
 
-🗂️ Dataset metadata: [MuyeHuang/DuplexOmni-Data](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data)
+🗂️ Dataset and reproducible metadata: [MuyeHuang/DuplexOmni-Data](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data)
+
+📦 Released parquet shard: [train_e2e_codec_000000.parquet](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data/blob/main/train_e2e_codec_000000.parquet)
 
 ## Overview
 
@@ -34,11 +36,14 @@ Generated datasets, trained model weights, checkpoints, logs, internal service
 endpoints, generated parquet, and generated media are not included in this
 GitHub repository. Model weights are released through the official
 [DuplexOmni model repository](https://huggingface.co/MuyeHuang/DuplexOmni).
-The complete trainable dataset is about 9TB and is too large to host in full, so
-we release its reproducible metadata in
+The complete trainable dataset is about 9TB, which makes uploading every
+generated shard impractical. We therefore release its reproducible metadata in
 [DuplexOmni-Data](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data).
-Processing this metadata with the data pipeline in this repository recreates
-the complete training dataset in the same form.
+The repository also includes a completed generated training shard,
+[`train_e2e_codec_000000.parquet`](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data/blob/main/train_e2e_codec_000000.parquet),
+which can be used directly or as a concrete reference for the pipeline's output
+schema and data format. Processing the metadata with this repository's data
+pipeline recreates the complete training dataset in the same form.
 
 Questions and contributions are welcome through
 [GitHub Issues](https://github.com/MuyeHuang/DuplexOmni/issues). If you are
@@ -98,10 +103,13 @@ This repository is intended for the public **source code** release. The official
 [dataset-metadata repository](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data)
 are public. Because the complete trainable dataset is about 9TB, the dataset
 repository provides reproducible metadata instead of hosting every generated
-training artifact. Run that metadata through this repository's data pipeline to
-recreate the complete dataset in the same form. Optional TTS and other external
-assets remain outside this GitHub repository. Documentation may still use
-placeholder identifiers where a local path or an optional asset is required:
+training artifact. One completed training shard,
+[`train_e2e_codec_000000.parquet`](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data/blob/main/train_e2e_codec_000000.parquet),
+is already available for direct use and comparison. Run the metadata through
+this repository's data pipeline to recreate the complete dataset in the same
+form. Optional TTS and other external assets remain outside this GitHub
+repository. Documentation may still use placeholder identifiers where a local
+path or an optional asset is required:
 
 ```text
 <duplexomni-dataset-repo>
@@ -727,7 +735,9 @@ Full-Duplex Interaction](https://arxiv.org/abs/2606.09186)
 
 🤗 模型权重：[MuyeHuang/DuplexOmni](https://huggingface.co/MuyeHuang/DuplexOmni)
 
-🗂️ 数据集 metadata：[MuyeHuang/DuplexOmni-Data](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data)
+🗂️ 数据集与可复现 metadata：[MuyeHuang/DuplexOmni-Data](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data)
+
+📦 已公开 parquet 分片：[train_e2e_codec_000000.parquet](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data/blob/main/train_e2e_codec_000000.parquet)
 
 ### 🚀 概览
 
@@ -743,9 +753,11 @@ DuplexOmni 面向实时全双工多模态交互：系统在生成语音输出的
 
 生成数据集、训练后的模型权重、checkpoint、日志、内部服务地址、生成 parquet 和生成媒体文件不包含在本 GitHub 仓库中。模型权重发布在官方
 [DuplexOmni 模型仓库](https://huggingface.co/MuyeHuang/DuplexOmni)。
-完整可训练数据集约 9TB，体积过大，无法全量托管，因此我们在
+完整可训练数据集约 9TB，体积过大，难以上传全部生成分片，因此我们在
 [DuplexOmni-Data](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data)
-中直接发布可复现的 metadata。使用本仓库的数据管线处理这些 metadata，可以原样制作完整训练数据集。
+中直接发布可复现的 metadata。该仓库同时已公开一个完整生成的训练分片
+[`train_e2e_codec_000000.parquet`](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data/blob/main/train_e2e_codec_000000.parquet)，
+可直接使用，也可用于对照数据管线的输出字段与数据形式。使用本仓库的数据管线处理这些 metadata，可以原样制作完整训练数据集。
 
 如有问题或建议，欢迎通过 [GitHub Issues](https://github.com/MuyeHuang/DuplexOmni/issues) 反馈；如果你对本项目感兴趣，也欢迎点一个 star。
 
@@ -800,7 +812,9 @@ open_source/
 本仓库面向公开源码发布。官方
 [模型权重仓库](https://huggingface.co/MuyeHuang/DuplexOmni)
 和[数据集 metadata 仓库](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data)
-均已公开。由于完整可训练数据集约 9TB，数据集仓库不全量托管所有生成后的训练产物，而是提供可复现 metadata。使用本仓库的数据管线处理这些 metadata，可以原样制作完整数据集。可选 TTS 和其他外部资产仍在 GitHub 之外管理。文档中需要本地路径或可选资产的位置可能仍使用以下占位符：
+均已公开。由于完整可训练数据集约 9TB，数据集仓库不全量托管所有生成后的训练产物，而是提供可复现 metadata。目前已公开一个完整训练分片
+[`train_e2e_codec_000000.parquet`](https://huggingface.co/datasets/MuyeHuang/DuplexOmni-Data/blob/main/train_e2e_codec_000000.parquet)，
+可直接使用和对照。使用本仓库的数据管线处理这些 metadata，可以原样制作完整数据集。可选 TTS 和其他外部资产仍在 GitHub 之外管理。文档中需要本地路径或可选资产的位置可能仍使用以下占位符：
 
 ```text
 <duplexomni-dataset-repo>
