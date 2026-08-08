@@ -107,13 +107,20 @@ class AudioBuffer:
     def __init__(self):
         self.buffer = bytearray()
         self.lock = asyncio.Lock()
+        self.changed = asyncio.Condition(self.lock)
 
     async def push(self, data: bytes):
-        async with self.lock:
+        async with self.changed:
             if data:
                 if len(data) % 2 != 0:
                     data = data[:-1]
                 self.buffer.extend(data)
+                self.changed.notify_all()
+
+    async def wait_for_bytes(self, num_bytes: int):
+        """Wait for real PCM instead of manufacturing silence on underrun."""
+        async with self.changed:
+            await self.changed.wait_for(lambda: len(self.buffer) >= num_bytes)
 
     async def pop(self, num_bytes: int) -> bytes:
         async with self.lock:
@@ -421,7 +428,8 @@ class RealtimeSession:
                         pcm = wav_bytes_to_pcm(bytes(msg))
                         if not pcm:
                             continue
-                        pcm = stretch_pcm_to_chunk(pcm, target_ms=CHUNK_MS)
+                        # Preserve every decoded sample. Talker packets aren't
+                        # guaranteed to be exactly one gateway chunk.
                         await self.playback_buffer.push(pcm)
                         n = await self.playback_buffer.bytes_len()
                         if n > MAX_PLAYBACK_BUFFER_BYTES:
@@ -484,17 +492,25 @@ class RealtimeSession:
 
     async def _output_loop(self):
         send_n = 0
+        chunk_seconds = CHUNK_MS / 1000.0
+        next_send_at = time.monotonic()
         while self.running:
             try:
-                out = await self.playback_buffer.pop(CHUNK_BYTES)
+                await self.playback_buffer.wait_for_bytes(CHUNK_BYTES)
+                now = time.monotonic()
+                if now > next_send_at:
+                    next_send_at = now
+                else:
+                    await asyncio.sleep(next_send_at - now)
+                out = await self.playback_buffer.pop_existing(CHUNK_BYTES)
                 send_n += 1
                 await self.websocket.send(out)
+                next_send_at += chunk_seconds
             except websockets.exceptions.ConnectionClosed:
                 break
             except Exception as e:
                 logging.error("output: %s", e)
                 break
-            await asyncio.sleep(CHUNK_MS / 1000.0)
         self.running = False
 
     async def _process_loop(self):

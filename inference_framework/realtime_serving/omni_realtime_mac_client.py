@@ -143,8 +143,10 @@ CHUNK_SAMPLES = int(SAMPLE_RATE * CHUNK_MS / 1000)
 BYTES_PER_SAMPLE = 2
 CHUNK_BYTES = CHUNK_SAMPLES * BYTES_PER_SAMPLE
 
-# 录音参数 (更小的块以减少延迟)
-RECORD_CHUNK = 16  # 录音块大小
+# CoreAudio device buffer. Sixteen frames is only 0.67 ms at 24 kHz and
+# forces roughly 1,500 Python callbacks per second, causing underruns.
+DEVICE_FRAMES_PER_BUFFER = 1024
+PLAYBACK_PREBUFFER_CHUNKS = 3
 FORMAT = pyaudio.paInt16
 
 # 静音检测阈值（与服务器一致）
@@ -564,7 +566,7 @@ class SidetonePlayer:
             channels=CHANNELS,
             rate=SAMPLE_RATE,
             output=True,
-            frames_per_buffer=RECORD_CHUNK  # 小块以减少延迟
+            frames_per_buffer=DEVICE_FRAMES_PER_BUFFER
         )
         logging.info(f"👂 耳返已启动 (音量: {self.volume:.1f}x)")
         
@@ -614,7 +616,7 @@ class AudioRecorder:
             channels=CHANNELS,
             rate=SAMPLE_RATE,
             input=True,
-            frames_per_buffer=RECORD_CHUNK,
+            frames_per_buffer=DEVICE_FRAMES_PER_BUFFER,
             stream_callback=self._audio_callback
         )
         self.recording = True
@@ -668,6 +670,7 @@ class AudioPlayer:
         self.buffer = deque()
         self.lock = threading.Lock()
         self.play_thread = None
+        self.buffering = True
         
         # 统计信息
         self.total_played_bytes = 0
@@ -681,7 +684,7 @@ class AudioPlayer:
             channels=CHANNELS,
             rate=SAMPLE_RATE,
             output=True,
-            frames_per_buffer=RECORD_CHUNK
+            frames_per_buffer=DEVICE_FRAMES_PER_BUFFER
         )
         self.playing = True
         self.play_thread = threading.Thread(target=self._play_loop, daemon=True)
@@ -702,10 +705,14 @@ class AudioPlayer:
         """播放循环"""
         while self.playing:
             with self.lock:
-                if self.buffer:
+                if self.buffering and len(self.buffer) >= PLAYBACK_PREBUFFER_CHUNKS:
+                    self.buffering = False
+                if not self.buffering and self.buffer:
                     data = self.buffer.popleft()
                 else:
                     data = None
+                    if not self.buffer:
+                        self.buffering = True
             
             if data:
                 try:
@@ -730,6 +737,7 @@ class AudioPlayer:
         """清空播放队列"""
         with self.lock:
             self.buffer.clear()
+            self.buffering = True
     
     def get_queue_size(self) -> int:
         """获取队列中的数据量"""
